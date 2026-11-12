@@ -1,0 +1,43 @@
+PHẦN 1: SƠ ĐỒ CÁC BƯỚC XÂU CHUỖI PROMPT (PROMPT CHAINING FLOW)
+[BƯỚC 1: Giải thích cơ chế LLM] 
+       ↓ (Đầu ra Phần 1)
+[BƯỚC 2: Liệt kê & Phân tích Ảo giác (Hallucination)] 
+       ↓ (Đầu ra Phần 2)
+[BƯỚC 3: Xây dựng Prompt mẫu bằng khung CREATE kết hợp Phần 1 & 2] 
+       ↓ (Sản phẩm cuối cùng)
+[CẨM NANG HOÀN CHỈNH CHO TÂN SINH VIÊN]
+PHẦN 2: NỘI DUNG CÁC PROMPT THÀNH PHẦN (PROMPT CHAINING)
+1. Prompt cho Phần 1 (Cách AI đoán từ):
+"Hãy đóng vai một chuyên gia giáo dục AI. Hãy giải thích ngắn gọn, dễ hiểu bằng ngôn ngữ dành cho tân sinh viên ngành Công nghệ thông tin về cách mà các mô hình ngôn ngữ lớn (LLM như GPT-4, Gemini) hoạt động thực chất là dự đoán từ tiếp theo (next-token prediction) dựa trên xác suất thống kê chứ không phải "suy nghĩ" như con người. Giới hạn trong khoảng 150-200 từ."
+2. Prompt cho Phần 2 (3 cách nhận diện ảo giác):
+"Dựa trên nền tảng kỹ thuật của LLM, hãy chỉ ra và phân tích 3 dấu hiệu / cách nhận diện hiện tượng "ảo giác" (hallucination) mà AI thường gặp khi sinh viên dùng nó để học lập trình (ví dụ: bịa ra các hàm thư viện không có thật, sai logic code nhưng viết rất tự tin). Đưa ra ví dụ thực tế và cách phòng tránh cho mỗi ý."
+3. Prompt cho Phần 3 (Cấu trúc prompt mẫu khung CREATE):
+"Sử dụng cấu trúc CREATE (Character - Role - Explicit Instruction - Audience - Tone - Example/Format), hãy thiết kế một Prompt mẫu hoàn chỉnh giúp một bạn tân sinh viên có thể nhờ AI giải thích và fix lỗi một đoạn code Python/Java bị bug mà ít có nguy cơ bị dính mã độc hoặc code sai logic."
+PHẦN 3: CUỐN CẨM NANG KẾT QUẢ HOÀN CHỈNH
+CẨM NANG SỬ DỤNG AI HIỆU QUẢ CHO TÂN SINH VIÊN
+Môn học: Kỹ Năng Prompting với AI (IT206-K26)
+PHẦN 1: BẢN CHẤT CỦA AI - AI "ĐOÁN TỪ" THẾ NÀO?
+Nhiều tân sinh viên thường lầm tưởng AI có tri giác, bộ não và suy nghĩ sâu sắc giống như con người. Thực tế, các Mô hình Ngôn ngữ Lớn (LLM) hoạt động dựa trên toán học xác suất:
+- Cơ chế Next-Token Prediction: AI nhận đầu vào (prompt) của bạn, chia nhỏ thành các đoạn mã (token) và tính toán xác suất từ hoặc ký tự nào có khả năng xuất hiện cao nhất tiếp theo trong ngữ cảnh đó.
+- Hệ quả: AI không thực sự "hiểu" đúng/sai mà chỉ đang "ghép từ" cực kỳ mượt mà dựa trên kho dữ liệu khổng lồ mà nó được huấn luyện. Do đó, nếu dữ liệu huấn luyện sai hoặc thiếu, AI vẫn sẽ tự tin đưa ra thông tin không chính xác.
+PHẦN 2: 3 CÁCH NHẬN DIỆN "ẢO GIÁC" (HALLUCINATION) CỦA AI TRONG LẬP TRÌNH
+Vì AI hoạt động theo cơ chế xác suất dự đoán từ, hiện tượng Ảo giác (Hallucination) rất hay xảy ra khi bạn hỏi nó về code:
+1. Bịa ra các API, Thư viện hoặc Hàm (Function) không có thực:
+   - Biểu hiện: AI viết cho bạn một đoạn code gọi một hàm cực kỳ tiện lợi của thư viện nào đó, nhưng khi đem vào IDE chạy thì báo lỗi ModuleNotFoundError hoặc AttributeError.
+   - Cách nhận diện & phòng tránh: Luôn yêu cầu AI trích dẫn tài liệu gốc hoặc kiểm tra lại bằng cách tra cứu documentation chính thức của ngôn ngữ đó.
+2. Code sai ngầm (Logic sai nhưng chạy không báo lỗi cú pháp):
+   - Biểu hiện: Cú pháp code hoàn toàn đúng, nhưng logic giải thuật bên trong bị ngược hoặc sai điều kiện biên (edge cases).
+   - Cách nhận diện & phòng tránh: Yêu cầu AI tự viết các test case (unit test) đi kèm để kiểm tra tính đúng đắn của đoạn code trước khi đưa vào dự án lớn.
+3. Giải thích uy tín cho thông tin sai lệch:
+   - Biểu hiện: Khi bạn hỏi một câu hỏi mẹo hoặc kiến thức lập trình phức tạp đời mới, AI vẫn dùng văn phong cực kỳ tự tin, mạch lạc để giải thích cho một lý thuyết hoàn toàn sai.
+   - Cách nhận diện & phòng tránh: Áp dụng tư duy phản biện (critical thinking), không bao giờ copy-paste code chạy thẳng vào production mà không đọc hiểu từng dòng.
+PHẦN 3: CẤU TRÚC PROMPT MẪU TỐI ƯU BẰNG KHUNG CREATE
+Để hạn chế tối đa ảo giác và ép AI trả về kết quả chuẩn xác nhất khi học tập, hãy áp dụng khung CREATE:
+- C - Character (Nhân vật): Xác định danh tính của AI.
+- R - Role (Vai trò): Giao nhiệm vụ cụ thể cho AI thực hiện.
+- E - Explicit Instruction (Hướng dẫn tường minh): Các bước thực hiện chi tiết.
+- A - Audience (Đối tượng hướng tới): Người đọc/người nhận kết quả là ai.
+- T - Tone (Văn phong): Giọng điệu trình bày.
+- E - Example/Format (Định dạng đầu ra): Yêu cầu cấu trúc trình bày kết quả.
+* Ví dụ Prompt mẫu hoàn chỉnh để nhờ AI fix bug code:
+"Đóng vai một Senior Software Engineer chuyên nghiệp (Character & Role). Hãy phân tích đoạn code Java bị lỗi NullPointerException dưới đây (Explicit Instruction) dành cho một tân sinh viên năm nhất mới học lập trình (Audience). Trình bày với giọng điệu ân cần, khích lệ và dễ hiểu (Tone). Định dạng đầu ra gồm 3 phần: (1) Nguyên nhân gốc rễ gây lỗi, (2) Đoạn code đã được sửa đúng, và (3) Lời khuyên để tránh lỗi này trong tương lai (Format)."
